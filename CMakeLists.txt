@@ -7,7 +7,7 @@ project(Project3)
 find_package(OpenCV REQUIRED)
 
 # Add executable target for main.cpp
-add_executable(Project3 src/main.cpp src/filters.cpp src/fetchFeature.cpp src/csv_util.cpp)
+add_executable(Project3 src/main.cpp src/fetchFeature.cpp src/csv_util.cpp)
 
 # Link OpenCV libraries to your executable
 target_link_libraries(Project3 ${OpenCV_LIBS})

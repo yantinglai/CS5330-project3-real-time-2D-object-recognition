@@ -1,13 +1,13 @@
 #ifndef CSV_UTIL_H
 #define CSV_UTIL_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
-// Append a line of image data to a CSV file
-int append_image_data_csv(char *filename, char *image_filename, std::vector<float> &image_data, int reset_file = 0);
+// Function to append a line of image data to a CSV file
+int append_image_data_csv(const std::string &filename, const std::string &image_filename, const std::vector<float> &image_data, int reset_file);
 
-// Read image data from a CSV file
-int read_image_data_csv(char *filename, std::vector<char *> &filenames, std::vector<std::vector<float>> &data, int echo_file = 0);
+// Function to read image data from a CSV file
+int read_image_data_csv(const std::string &filename, std::vector<std::string> &filenames, std::vector<std::vector<float>> &data, int echo_file);
 
-#endif
+#endif // CSV_UTIL_H

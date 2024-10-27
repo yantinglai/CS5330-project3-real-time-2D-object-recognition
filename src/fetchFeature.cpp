@@ -91,7 +91,7 @@ RotatedRect getBoundingBox(Mat &region, double x, double y, double alpha) {
     Point centroid = Point(x, y);
     Size size = Size(lengthX, lengthY);
 
-    return RotatedRect(centroid, size, alpha * 180.0 / CV_PI);
+    return RotatedRect(centroid, size, alpha * 180.0 / CV_PI + 90);
 }
 
 void drawLine(Mat &image, double x, double y, double alpha, Scalar color) {
