@@ -9,7 +9,7 @@ using namespace cv;
 using namespace std;
 
 Mat threshold(Mat &image) {
-    int THRESHOLD = 130;
+    int THRESHOLD = 120; // Adjust threshold value to make it accurate
     Mat processedImage, grayscale;
     processedImage = Mat(image.size(), CV_8UC1);
     cvtColor(image, grayscale, COLOR_BGR2GRAY);
@@ -26,10 +26,24 @@ Mat threshold(Mat &image) {
     return processedImage;
 }
 
+Mat customeThreshold(Mat &image) {
+     Mat grayscale, processedImage;
+    // Convert the image to grayscale
+    cvtColor(image, grayscale, COLOR_BGR2GRAY);
+
+    // Optional: Apply histogram equalization to reduce shadow effects
+    equalizeHist(grayscale, grayscale);
+
+    // Apply adaptive thresholding to handle shadows
+    adaptiveThreshold(grayscale, processedImage, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY_INV, 15, 5);
+    return processedImage;
+}
+
+
 Mat cleanup(Mat &image) {
     Mat processedImage;
-    const Mat kernel = getStructuringElement(MORPH_CROSS, Size(25, 25));
-    morphologyEx(image, processedImage, MORPH_CLOSE, kernel);
+    const Mat kernel = getStructuringElement(MORPH_RECT, Size(15, 15)); // Use smaller kernel
+    morphologyEx(image, processedImage, MORPH_OPEN, kernel); // Apply opening to remove small noise
     return processedImage;
 }
 
@@ -96,17 +110,20 @@ RotatedRect getBoundingBox(Mat &region, double x, double y, double alpha) {
 
 void drawLine(Mat &image, double x, double y, double alpha, Scalar color) {
     double length = 100.0;
-    double edge1 = length * sin(alpha);
-    double edge2 = sqrt(length * length - edge1 * edge1);
-    double xPrime = x + edge2, yPrime = y + edge1;
-    arrowedLine(image, Point(x, y), Point(xPrime, yPrime), color, 3);
+    double dx = length * cos(alpha);  // X displacement based on the angle
+    double dy = length * sin(alpha);  // Y displacement based on the angle
+
+    double xPrime = x + dx;  // New x coordinate based on angle
+    double yPrime = y + dy;  // New y coordinate based on angle
+
+    arrowedLine(image, Point(x, y), Point(xPrime, yPrime), color, 15); // increase the arrowline thickness
 }
 
 void drawBoundingBox(Mat &image, RotatedRect boundingBox, Scalar color) {
     Point2f rect_points[4];
     boundingBox.points(rect_points);
     for (int i = 0; i < 4; i++) {
-        line(image, rect_points[i], rect_points[(i + 1) % 4], color, 3);
+         line(image, rect_points[i], rect_points[(i + 1) % 4], color, 15); // increase the bouding box thickness
     }
 }
 

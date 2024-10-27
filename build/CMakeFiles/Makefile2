@@ -81,12 +81,12 @@ clean: CMakeFiles/Project3.dir/clean
 CMakeFiles/Project3.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project3.dir/build.make CMakeFiles/Project3.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project3.dir/build.make CMakeFiles/Project3.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target Project3"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles --progress-num=1,2,3,4 "Built target Project3"
 .PHONY : CMakeFiles/Project3.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Project3.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Project3.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles 0
 .PHONY : CMakeFiles/Project3.dir/rule

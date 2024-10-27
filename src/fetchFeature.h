@@ -9,6 +9,8 @@
 // Threshold the image, converting to grayscale and setting binary threshold
 cv::Mat threshold(cv::Mat &image);
 
+cv::Mat customeThreshold(cv::Mat &image);
+
 // Clean up the image using morphological operations (dilation, erosion)
 cv::Mat cleanup(cv::Mat &image);
 

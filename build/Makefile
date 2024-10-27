@@ -177,30 +177,6 @@ src/fetchFeature.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project3.dir/build.make CMakeFiles/Project3.dir/src/fetchFeature.cpp.s
 .PHONY : src/fetchFeature.cpp.s
 
-src/filters.o: src/filters.cpp.o
-.PHONY : src/filters.o
-
-# target to build an object file
-src/filters.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project3.dir/build.make CMakeFiles/Project3.dir/src/filters.cpp.o
-.PHONY : src/filters.cpp.o
-
-src/filters.i: src/filters.cpp.i
-.PHONY : src/filters.i
-
-# target to preprocess a source file
-src/filters.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project3.dir/build.make CMakeFiles/Project3.dir/src/filters.cpp.i
-.PHONY : src/filters.cpp.i
-
-src/filters.s: src/filters.cpp.s
-.PHONY : src/filters.s
-
-# target to generate assembly for a file
-src/filters.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project3.dir/build.make CMakeFiles/Project3.dir/src/filters.cpp.s
-.PHONY : src/filters.cpp.s
-
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -240,9 +216,6 @@ help:
 	@echo "... src/fetchFeature.o"
 	@echo "... src/fetchFeature.i"
 	@echo "... src/fetchFeature.s"
-	@echo "... src/filters.o"
-	@echo "... src/filters.i"
-	@echo "... src/filters.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

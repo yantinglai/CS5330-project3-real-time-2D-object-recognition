@@ -83,24 +83,10 @@ CMakeFiles/Project3.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Project3.dir/src/main.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sundri/Desktop/CS5330/Project3/src/main.cpp -o CMakeFiles/Project3.dir/src/main.cpp.s
 
-CMakeFiles/Project3.dir/src/filters.cpp.o: CMakeFiles/Project3.dir/flags.make
-CMakeFiles/Project3.dir/src/filters.cpp.o: /Users/sundri/Desktop/CS5330/Project3/src/filters.cpp
-CMakeFiles/Project3.dir/src/filters.cpp.o: CMakeFiles/Project3.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Project3.dir/src/filters.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Project3.dir/src/filters.cpp.o -MF CMakeFiles/Project3.dir/src/filters.cpp.o.d -o CMakeFiles/Project3.dir/src/filters.cpp.o -c /Users/sundri/Desktop/CS5330/Project3/src/filters.cpp
-
-CMakeFiles/Project3.dir/src/filters.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Project3.dir/src/filters.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sundri/Desktop/CS5330/Project3/src/filters.cpp > CMakeFiles/Project3.dir/src/filters.cpp.i
-
-CMakeFiles/Project3.dir/src/filters.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Project3.dir/src/filters.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sundri/Desktop/CS5330/Project3/src/filters.cpp -o CMakeFiles/Project3.dir/src/filters.cpp.s
-
 CMakeFiles/Project3.dir/src/fetchFeature.cpp.o: CMakeFiles/Project3.dir/flags.make
 CMakeFiles/Project3.dir/src/fetchFeature.cpp.o: /Users/sundri/Desktop/CS5330/Project3/src/fetchFeature.cpp
 CMakeFiles/Project3.dir/src/fetchFeature.cpp.o: CMakeFiles/Project3.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Project3.dir/src/fetchFeature.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Project3.dir/src/fetchFeature.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Project3.dir/src/fetchFeature.cpp.o -MF CMakeFiles/Project3.dir/src/fetchFeature.cpp.o.d -o CMakeFiles/Project3.dir/src/fetchFeature.cpp.o -c /Users/sundri/Desktop/CS5330/Project3/src/fetchFeature.cpp
 
 CMakeFiles/Project3.dir/src/fetchFeature.cpp.i: cmake_force
@@ -114,7 +100,7 @@ CMakeFiles/Project3.dir/src/fetchFeature.cpp.s: cmake_force
 CMakeFiles/Project3.dir/src/csv_util.cpp.o: CMakeFiles/Project3.dir/flags.make
 CMakeFiles/Project3.dir/src/csv_util.cpp.o: /Users/sundri/Desktop/CS5330/Project3/src/csv_util.cpp
 CMakeFiles/Project3.dir/src/csv_util.cpp.o: CMakeFiles/Project3.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Project3.dir/src/csv_util.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Project3.dir/src/csv_util.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Project3.dir/src/csv_util.cpp.o -MF CMakeFiles/Project3.dir/src/csv_util.cpp.o.d -o CMakeFiles/Project3.dir/src/csv_util.cpp.o -c /Users/sundri/Desktop/CS5330/Project3/src/csv_util.cpp
 
 CMakeFiles/Project3.dir/src/csv_util.cpp.i: cmake_force
@@ -128,7 +114,6 @@ CMakeFiles/Project3.dir/src/csv_util.cpp.s: cmake_force
 # Object files for target Project3
 Project3_OBJECTS = \
 "CMakeFiles/Project3.dir/src/main.cpp.o" \
-"CMakeFiles/Project3.dir/src/filters.cpp.o" \
 "CMakeFiles/Project3.dir/src/fetchFeature.cpp.o" \
 "CMakeFiles/Project3.dir/src/csv_util.cpp.o"
 
@@ -136,7 +121,6 @@ Project3_OBJECTS = \
 Project3_EXTERNAL_OBJECTS =
 
 Project3: CMakeFiles/Project3.dir/src/main.cpp.o
-Project3: CMakeFiles/Project3.dir/src/filters.cpp.o
 Project3: CMakeFiles/Project3.dir/src/fetchFeature.cpp.o
 Project3: CMakeFiles/Project3.dir/src/csv_util.cpp.o
 Project3: CMakeFiles/Project3.dir/build.make
@@ -197,7 +181,7 @@ Project3: /opt/homebrew/lib/libopencv_photo.4.10.0.dylib
 Project3: /opt/homebrew/lib/libopencv_imgproc.4.10.0.dylib
 Project3: /opt/homebrew/lib/libopencv_core.4.10.0.dylib
 Project3: CMakeFiles/Project3.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Project3"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sundri/Desktop/CS5330/Project3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Project3"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Project3.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
