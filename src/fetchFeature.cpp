@@ -135,3 +135,43 @@ void calcHuMoments(Moments mo, vector<double> &huMoments) {
         huMoments.push_back(d);
     }
 }
+
+vector<float> computeStandardDeviation(const vector<vector<float>>& featureVectors) {
+    vector<float> stdDev(featureVectors[0].size(), 0.0f);
+
+    // Step 1: Calculate mean of each feature
+    vector<float> mean(featureVectors[0].size(), 0.0f);
+    for (const auto& vec : featureVectors) {
+        for (int i = 0; i < vec.size(); i++) {
+            mean[i] += vec[i];
+        }
+    }
+    for (int i = 0; i < mean.size(); i++) {
+        mean[i] /= featureVectors.size();
+    }
+
+    // Step 2: Calculate variance and standard deviation for each feature
+    for (const auto& vec : featureVectors) {
+        for (int i = 0; i < vec.size(); i++) {
+            stdDev[i] += pow(vec[i] - mean[i], 2);
+        }
+    }
+    for (int i = 0; i < stdDev.size(); i++) {
+        stdDev[i] = sqrt(stdDev[i] / featureVectors.size());
+    }
+
+    return stdDev;
+}
+
+// Function to calculate the scaled Euclidean distance between two feature vectors
+float calculateEuclideanDistance(const vector<float>& vec1, const vector<float>& vec2, const vector<float>& stdDev) {
+    float distance = 0.0f;
+
+    for (int i = 0; i < vec1.size(); i++) {
+        if (stdDev[i] != 0) {  // Avoid division by zero
+            distance += pow((vec1[i] - vec2[i]) / stdDev[i], 2);
+        }
+    }
+
+    return sqrt(distance);
+}

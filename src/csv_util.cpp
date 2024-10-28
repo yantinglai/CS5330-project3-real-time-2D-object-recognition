@@ -80,3 +80,24 @@ int read_image_data_csv(const std::string &filename, std::vector<std::string> &f
 
     return 0; // Return 0 for success
 }
+
+// Load feature vectors from CSV file
+void loadFeatureVectors(const string& csvFilename, vector<vector<float>>& featureVectors, vector<string>& labels) {
+    ifstream file(csvFilename);
+    string line, label;
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        vector<float> featureVector;
+        string value;
+
+        getline(ss, label, ',');  // First element is the label
+        labels.push_back(label);  // Store label
+
+        while (getline(ss, value, ',')) {
+            featureVector.push_back(stof(value));  // Convert each value to float
+        }
+
+        featureVectors.push_back(featureVector);  // Store feature vector
+    }
+}

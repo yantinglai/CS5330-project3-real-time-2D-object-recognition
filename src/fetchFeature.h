@@ -29,4 +29,9 @@ void drawBoundingBox(cv::Mat &image, cv::RotatedRect boundingBox, cv::Scalar col
 // Calculate Hu Moments for feature extraction
 void calcHuMoments(cv::Moments mo, std::vector<double> &huMoments);
 
+std::vector<float> computeStandardDeviation(const std::vector<std::vector<float>>& featureVectors);
+
+float calculateEuclideanDistance(const std::vector<float>& vec1, const std::vector<float>& vec2, const std::vector<float>& stdDev);
+
+
 #endif // FETCHFEATURE_H
