@@ -1,3 +1,9 @@
+/*
+  Author: Yanting Lai
+  Date: 2024-10-28
+  CS 5330 Computer Vision
+*/
+
 #include "csv_util.h"
 #include <fstream>
 #include <iostream>
@@ -84,15 +90,15 @@ int read_image_data_csv(const std::string &filename, std::vector<std::string> &f
 std::map<std::vector<float>, std::string> read_feature_vectors_and_labels(const std::string& csv_filename) {
     std::map<std::vector<float>, std::string> feature_to_label;
     
-    // 打开 CSV 文件
+    // Open the CSV file
     std::ifstream csv_file(csv_filename);
     if (!csv_file.is_open()) {
         throw std::runtime_error("Failed to open CSV file: " + csv_filename);
     }
 
-    // 读取每一行数据
+    // Read each line of data
     std::string line;
-    // 跳过第一行 (空行)
+    // Skip the first line (empty line)
     std::getline(csv_file, line);
 
     while (std::getline(csv_file, line)) {
@@ -100,18 +106,18 @@ std::map<std::vector<float>, std::string> read_feature_vectors_and_labels(const 
         std::string item;
         std::vector<float> feature_vector;
 
-        // 读取标签
+        // Read the label
         std::getline(line_stream, item, ',');
         std::string label = item;
 
-        // 读取特征向量
+        // Read the feature vector
         while (std::getline(line_stream, item, ',')) {
             if (!item.empty()) {
                 feature_vector.push_back(std::stof(item));
             }
         }
 
-        // 只有当特征向量非空时才添加到映射中
+        // Only add to the map if the feature vector is not empty
         if (!feature_vector.empty()) {
             feature_to_label[feature_vector] = label;
         }

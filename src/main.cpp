@@ -1,3 +1,14 @@
+/*
+  Author: Yanting Lai
+  Date: 2024-10-28
+  CS 5330 Computer Vision
+  Description: 
+  This function processes images to classify objects by extracting 
+  features and matching them to known labels in a CSV file. 
+  It displays each image with its predicted label, updates a confusion matrix
+  for accuracy, and calculates overall classification performance.
+*/
+
 #include <opencv2/opencv.hpp>
 #include <filesystem>
 #include <iostream>

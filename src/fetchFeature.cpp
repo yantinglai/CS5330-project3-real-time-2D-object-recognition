@@ -1,3 +1,9 @@
+/*
+  Author: Yanting Lai
+  Date: 2024-10-28
+  CS 5330 Computer Vision
+*/
+
 #include <stdlib.h>
 #include <map>
 #include <float.h>
