@@ -4,6 +4,7 @@
 #include <math.h>
 #include <opencv2/opencv.hpp>
 #include "fetchFeature.h"
+#include <numeric> 
 
 using namespace cv;
 using namespace std;
@@ -136,42 +137,114 @@ void calcHuMoments(Moments mo, vector<double> &huMoments) {
     }
 }
 
-vector<float> computeStandardDeviation(const vector<vector<float>>& featureVectors) {
-    vector<float> stdDev(featureVectors[0].size(), 0.0f);
-
-    // Step 1: Calculate mean of each feature
-    vector<float> mean(featureVectors[0].size(), 0.0f);
-    for (const auto& vec : featureVectors) {
-        for (int i = 0; i < vec.size(); i++) {
-            mean[i] += vec[i];
-        }
-    }
-    for (int i = 0; i < mean.size(); i++) {
-        mean[i] /= featureVectors.size();
-    }
-
-    // Step 2: Calculate variance and standard deviation for each feature
-    for (const auto& vec : featureVectors) {
-        for (int i = 0; i < vec.size(); i++) {
-            stdDev[i] += pow(vec[i] - mean[i], 2);
-        }
-    }
-    for (int i = 0; i < stdDev.size(); i++) {
-        stdDev[i] = sqrt(stdDev[i] / featureVectors.size());
-    }
-
-    return stdDev;
+double cosine_similarity(const vector<float>& v1, const vector<float>& v2) {
+    double dot_product = inner_product(v1.begin(), v1.end(), v2.begin(), 0.0);
+    double norm1 = sqrt(inner_product(v1.begin(), v1.end(), v1.begin(), 0.0));
+    double norm2 = sqrt(inner_product(v2.begin(), v2.end(), v2.begin(), 0.0));
+    return dot_product / (norm1 * norm2);
 }
 
-// Function to calculate the scaled Euclidean distance between two feature vectors
-float calculateEuclideanDistance(const vector<float>& vec1, const vector<float>& vec2, const vector<float>& stdDev) {
-    float distance = 0.0f;
-
-    for (int i = 0; i < vec1.size(); i++) {
-        if (stdDev[i] != 0) {  // Avoid division by zero
-            distance += pow((vec1[i] - vec2[i]) / stdDev[i], 2);
+std::vector<float> calculate_stdevs(const std::map<std::vector<float>, std::string>& feature_to_label) {
+    // Get the dimension of feature vectors
+    if (feature_to_label.empty()) {
+        return std::vector<float>();
+    }
+    size_t dim = feature_to_label.begin()->first.size();
+    
+    // Calculate mean for each dimension
+    std::vector<float> means(dim, 0.0);
+    std::vector<float> squared_sums(dim, 0.0);
+    int n = feature_to_label.size();
+    
+    for (const auto& pair : feature_to_label) {
+        const auto& features = pair.first;
+        for (size_t i = 0; i < dim; i++) {
+            means[i] += features[i];
+            squared_sums[i] += features[i] * features[i];
         }
     }
+    
+    // Calculate standard deviation
+    std::vector<float> stdevs(dim);
+    for (size_t i = 0; i < dim; i++) {
+        means[i] /= n;
+        float variance = (squared_sums[i] / n) - (means[i] * means[i]);
+        stdevs[i] = std::sqrt(variance);
+        // Avoid division by zero
+        if (stdevs[i] < 1e-6) {
+            stdevs[i] = 1.0;
+        }
+    }
+    
+    return stdevs;
+}
 
-    return sqrt(distance);
+// Calculate scaled Euclidean distance between two feature vectors
+double scaled_euclidean_distance(const std::vector<float>& v1, const std::vector<float>& v2, const std::vector<float>& stdevs) {
+    double sum = 0.0;
+    for (size_t i = 0; i < v1.size(); i++) {
+        double diff = (v1[i] - v2[i]) / stdevs[i];
+        sum += diff * diff;
+    }
+    return std::sqrt(sum);
+}
+
+std::string improved_knn_classify(const std::vector<float>& query_vector, 
+                                const std::map<std::vector<float>, std::string>& feature_to_label,
+                                const std::vector<float>& stdevs,
+                                int k,
+                                double confidence_threshold) {
+    vector<DistanceLabel> all_distances;
+    
+    // Calculate distances to all training examples
+    for (const auto& pair : feature_to_label) {
+        double distance = scaled_euclidean_distance(query_vector, pair.first, stdevs);
+        all_distances.emplace_back(distance, pair.second);
+    }
+    
+    // Sort by distance
+    sort(all_distances.begin(), all_distances.end());
+    
+    // Take top K neighbors
+    double sum_weights = 0;
+    map<string, double> weighted_votes;
+    
+    // Use only k nearest neighbors
+    int num_neighbors = min(k, (int)all_distances.size());
+    
+    // Calculate weights and votes
+    for (int i = 0; i < num_neighbors; i++) {
+        // Use inverse distance weighting
+        double weight = 1.0 / (all_distances[i].distance + 1e-6);
+        weighted_votes[all_distances[i].label] += weight;
+        sum_weights += weight;
+    }
+    
+    // Find the class with highest weighted vote
+    string best_label;
+    double max_vote = 0;
+    
+    // Print debug information
+    cout << "\nKNN Debug Info (k=" << k << "):" << endl;
+    for (const auto& vote : weighted_votes) {
+        double normalized_vote = vote.second / sum_weights;
+        cout << vote.first << ": " << (normalized_vote * 100) << "% confidence" << endl;
+        
+        if (normalized_vote > max_vote) {
+            max_vote = normalized_vote;
+            best_label = vote.first;
+        }
+    }
+    
+    // Check confidence threshold
+    if (max_vote < confidence_threshold) {
+        cout << "Low confidence classification (" << (max_vote * 100) << "% < " 
+             << (confidence_threshold * 100) << "%)" << endl;
+        return "Unknown";
+    }
+    
+    cout << "Selected class: " << best_label << " with " 
+         << (max_vote * 100) << "% confidence" << endl;
+    
+    return best_label;
 }

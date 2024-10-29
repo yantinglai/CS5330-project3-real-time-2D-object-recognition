@@ -3,6 +3,8 @@
 
 #include <opencv2/opencv.hpp>
 #include <vector>
+#include <map>
+#include <string>
 
 // Function declarations for fetchFeature.cpp
 
@@ -29,9 +31,36 @@ void drawBoundingBox(cv::Mat &image, cv::RotatedRect boundingBox, cv::Scalar col
 // Calculate Hu Moments for feature extraction
 void calcHuMoments(cv::Moments mo, std::vector<double> &huMoments);
 
-std::vector<float> computeStandardDeviation(const std::vector<std::vector<float>>& featureVectors);
+double cosine_similarity(const std::vector<float>& v1, const std::vector<float>& v2);
 
-float calculateEuclideanDistance(const std::vector<float>& vec1, const std::vector<float>& vec2, const std::vector<float>& stdDev);
+// New additions for KNN implementation
+struct DistanceLabel {
+    double distance;
+    std::string label;
+    
+    // Default constructor (needed for vector operations)
+    DistanceLabel() : distance(0.0), label("") {}
+    
+    // Constructor with parameters
+    DistanceLabel(double d, std::string l) : distance(d), label(l) {}
+    
+    // For sorting
+    bool operator<(const DistanceLabel& other) const {
+        return distance < other.distance;
+    }
+};
 
+// Calculate scaled Euclidean distance
+double scaled_euclidean_distance(const std::vector<float>& v1, const std::vector<float>& v2, const std::vector<float>& stdevs);
+
+// Calculate standard deviations for feature scaling
+std::vector<float> calculate_stdevs(const std::map<std::vector<float>, std::string>& feature_to_label);
+
+// KNN method
+std::string improved_knn_classify(const std::vector<float>& query_vector, 
+                                const std::map<std::vector<float>, std::string>& feature_to_label,
+                                const std::vector<float>& stdevs,
+                                int k,
+                                double confidence_threshold);
 
 #endif // FETCHFEATURE_H

@@ -81,23 +81,42 @@ int read_image_data_csv(const std::string &filename, std::vector<std::string> &f
     return 0; // Return 0 for success
 }
 
-// Load feature vectors from CSV file
-void loadFeatureVectors(const string& csvFilename, vector<vector<float>>& featureVectors, vector<string>& labels) {
-    ifstream file(csvFilename);
-    string line, label;
+std::map<std::vector<float>, std::string> read_feature_vectors_and_labels(const std::string& csv_filename) {
+    std::map<std::vector<float>, std::string> feature_to_label;
+    
+    // 打开 CSV 文件
+    std::ifstream csv_file(csv_filename);
+    if (!csv_file.is_open()) {
+        throw std::runtime_error("Failed to open CSV file: " + csv_filename);
+    }
 
-    while (getline(file, line)) {
-        stringstream ss(line);
-        vector<float> featureVector;
-        string value;
+    // 读取每一行数据
+    std::string line;
+    // 跳过第一行 (空行)
+    std::getline(csv_file, line);
 
-        getline(ss, label, ',');  // First element is the label
-        labels.push_back(label);  // Store label
+    while (std::getline(csv_file, line)) {
+        std::stringstream line_stream(line);
+        std::string item;
+        std::vector<float> feature_vector;
 
-        while (getline(ss, value, ',')) {
-            featureVector.push_back(stof(value));  // Convert each value to float
+        // 读取标签
+        std::getline(line_stream, item, ',');
+        std::string label = item;
+
+        // 读取特征向量
+        while (std::getline(line_stream, item, ',')) {
+            if (!item.empty()) {
+                feature_vector.push_back(std::stof(item));
+            }
         }
 
-        featureVectors.push_back(featureVector);  // Store feature vector
+        // 只有当特征向量非空时才添加到映射中
+        if (!feature_vector.empty()) {
+            feature_to_label[feature_vector] = label;
+        }
     }
+
+    csv_file.close();
+    return feature_to_label;
 }
